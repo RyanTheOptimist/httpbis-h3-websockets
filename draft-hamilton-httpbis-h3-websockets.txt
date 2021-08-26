@@ -13,7 +13,10 @@ Expires: 27 February 2022
 
 Abstract
 
-   TODO Abstract
+   The mechanism for running the WebSocket Protocol over a single stream
+   of an HTTP/3 connection is equally applicable to HTTP/3, but need to
+   be separately registered.  This document describes the
+   SETTINGS_ENABLE_CONNECT_PROTOCOL SETTINGS Parameter for HTTP/3.
 
 Status of This Memo
 
@@ -58,7 +61,9 @@ Table of Contents
 
 1.  Introduction
 
-   TODO Introduction
+   [RFC8441] defines an extension to HTTP/2 which is also useful in
+   HTTP/3.  Appendix A.2.3 of [HTTP3] describes the required updates for
+   HTTP/2 settings to be used with HTTP/3.
 
 2.  Conventions and Definitions
 
@@ -68,13 +73,32 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+   [RFC8441] defines a mechanism for running the WebSocket Protocol
+   [RFC6455] over a single stream of an HTTP/2 connection.  This
+   includes the use of a new HTTP/2 SETTING send by a server to inform a
+   client that it may send the Extended CONNECT.
+
+   The semantics of the headers and SETTING are identical to those in
+   HTTP/2 as defined [RFC8441].  The SETTINGS_ENABLE_CONNECT_PROTOCOL
+   value is 0x08 (decimal 8), as in HTTP/2.
+
 3.  Security Considerations
 
-   TODO Security
+   This document introduces no new security considerations beyond those
+   discussed in [RFC8841].
 
 4.  IANA Considerations
 
-   This document has no IANA actions.
+   This document registers a new setting in the "HTTP/3 Settings"
+   registry ([HTTP3]).
+
+   +==================================+======+===============+=========+
+   | Setting Name                     |Value | Specification | Default |
+   +==================================+======+===============+=========+
+   | SETTINGS_ENABLE_CONNECT_PROTOCOL | 0x08 | This document | 0       |
+   +----------------------------------+------+---------------+---------+
+
+                                  Table 1
 
 5.  Normative References
 
@@ -83,9 +107,24 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://datatracker.ietf.org/doc/html/rfc2119>.
 
+   [RFC6455]  Fette, I. and A. Melnikov, "The WebSocket Protocol",
+              RFC 6455, DOI 10.17487/RFC6455, December 2011,
+              <https://datatracker.ietf.org/doc/html/rfc6455>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://datatracker.ietf.org/doc/html/rfc8174>.
+
+   [RFC8441]  McManus, P., "Bootstrapping WebSockets with HTTP/2",
+              RFC 8441, DOI 10.17487/RFC8441, September 2018,
+              <https://datatracker.ietf.org/doc/html/rfc8441>.
+
+   [RFC8841]  Holmberg, C., Shpount, R., Loreto, S., and G. Camarillo,
+              "Session Description Protocol (SDP) Offer/Answer
+              Procedures for Stream Control Transmission Protocol (SCTP)
+              over Datagram Transport Layer Security (DTLS) Transport",
+              RFC 8841, DOI 10.17487/RFC8841, January 2021,
+              <https://datatracker.ietf.org/doc/html/rfc8841>.
 
 Acknowledgments
 

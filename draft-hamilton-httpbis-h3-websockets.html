@@ -7,7 +7,10 @@
 <title>Bootstrapping WebSockets with HTTP/3</title>
 <meta content="Ryan Hamilton" name="author">
 <meta content="
-       TODO Abstract 
+       The mechanism for running the WebSocket Protocol over a single stream
+of an HTTP/3 connection is equally applicable to HTTP/3, but need to be
+separately registered.  This document describes the
+SETTINGS_ENABLE_CONNECT_PROTOCOL SETTINGS Parameter for HTTP/3. 
     " name="description">
 <meta content="xml2rfc 3.9.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
@@ -1041,7 +1044,10 @@ address div.right {
 <h1 id="title">Bootstrapping WebSockets with HTTP/3</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">The mechanism for running the WebSocket Protocol over a single stream
+of an HTTP/3 connection is equally applicable to HTTP/3, but need to be
+separately registered.  This document describes the
+SETTINGS_ENABLE_CONNECT_PROTOCOL SETTINGS Parameter for HTTP/3.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1090,26 +1096,26 @@ address div.right {
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="toc compact ulBare ulEmpty">
-<li class="toc compact ulBare ulEmpty" id="section-toc.1-1.1">
+<nav class="toc"><ul class="toc ulEmpty compact ulBare">
+<li class="toc ulEmpty compact ulBare" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a></p>
 </li>
-          <li class="toc compact ulBare ulEmpty" id="section-toc.1-1.2">
+          <li class="toc ulEmpty compact ulBare" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="xref">2</a>.  <a href="#name-conventions-and-definitions" class="xref">Conventions and Definitions</a></p>
 </li>
-          <li class="toc compact ulBare ulEmpty" id="section-toc.1-1.3">
+          <li class="toc ulEmpty compact ulBare" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="xref">3</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
 </li>
-          <li class="toc compact ulBare ulEmpty" id="section-toc.1-1.4">
+          <li class="toc ulEmpty compact ulBare" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
 </li>
-          <li class="toc compact ulBare ulEmpty" id="section-toc.1-1.5">
+          <li class="toc ulEmpty compact ulBare" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
 </li>
-          <li class="toc compact ulBare ulEmpty" id="section-toc.1-1.6">
+          <li class="toc ulEmpty compact ulBare" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#appendix-A" class="xref"></a><a href="#name-acknowledgments" class="xref">Acknowledgments</a></p>
 </li>
-          <li class="toc compact ulBare ulEmpty" id="section-toc.1-1.7">
+          <li class="toc ulEmpty compact ulBare" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#appendix-B" class="xref"></a><a href="#name-authors-address" class="xref">Author's Address</a></p>
 </li>
         </ul>
@@ -1121,7 +1127,9 @@ address div.right {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">TODO Introduction<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1"><span>[<a href="#RFC8441" class="xref">RFC8441</a>]</span> defines an extension to HTTP/2 which is also useful in HTTP/3.
+Appendix A.2.3 of [HTTP3] describes the required updates for HTTP/2
+settings to be used with HTTP/3.<a href="#section-1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1134,6 +1142,13 @@ NOT", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2"><span>[<a href="#RFC8441" class="xref">RFC8441</a>]</span> defines a mechanism for running the WebSocket Protocol
+<span>[<a href="#RFC6455" class="xref">RFC6455</a>]</span> over a single stream of an HTTP/2 connection. This includes
+the use of a new HTTP/2 SETTING send by a server to inform a client
+that it may send the Extended CONNECT.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">The semantics of the headers and SETTING are identical to those
+in HTTP/2 as defined <span>[<a href="#RFC8441" class="xref">RFC8441</a>]</span>. The SETTINGS_ENABLE_CONNECT_PROTOCOL
+value is 0x08 (decimal 8), as in HTTP/2.<a href="#section-2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1141,7 +1156,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-security-considerations">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-3-1">TODO Security<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">This document introduces no new security considerations beyond those
+discussed in <span>[<a href="#RFC8841" class="xref">RFC8841</a>]</span>.<a href="#section-3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1149,7 +1165,27 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-iana-considerations">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-4-1">This document has no IANA actions.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">This document registers a new setting in the "HTTP/3 Settings"
+registry ([HTTP3]).<a href="#section-4-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+        <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Setting Name</th>
+            <th class="text-center" rowspan="1" colspan="1">Value</th>
+            <th class="text-left" rowspan="1" colspan="1">Specification</th>
+            <th class="text-left" rowspan="1" colspan="1">Default</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">SETTINGS_ENABLE_CONNECT_PROTOCOL</td>
+            <td class="text-center" rowspan="1" colspan="1">0x08</td>
+            <td class="text-left" rowspan="1" colspan="1">This document</td>
+            <td class="text-left" rowspan="1" colspan="1">0</td>
+          </tr>
+        </tbody>
+      </table>
 </section>
 </div>
 <section id="section-5">
@@ -1161,9 +1197,21 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC6455">[RFC6455]</dt>
+      <dd>
+<span class="refAuthor">Fette, I.</span> and <span class="refAuthor">A. Melnikov</span>, <span class="refTitle">"The WebSocket Protocol"</span>, <span class="seriesInfo">RFC 6455</span>, <span class="seriesInfo">DOI 10.17487/RFC6455</span>, <time datetime="2011-12" class="refDate">December 2011</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc6455">https://datatracker.ietf.org/doc/html/rfc6455</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc8174">https://datatracker.ietf.org/doc/html/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8441">[RFC8441]</dt>
+      <dd>
+<span class="refAuthor">McManus, P.</span>, <span class="refTitle">"Bootstrapping WebSockets with HTTP/2"</span>, <span class="seriesInfo">RFC 8441</span>, <span class="seriesInfo">DOI 10.17487/RFC8441</span>, <time datetime="2018-09" class="refDate">September 2018</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc8441">https://datatracker.ietf.org/doc/html/rfc8441</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8841">[RFC8841]</dt>
+    <dd>
+<span class="refAuthor">Holmberg, C.</span>, <span class="refAuthor">Shpount, R.</span>, <span class="refAuthor">Loreto, S.</span>, and <span class="refAuthor">G. Camarillo</span>, <span class="refTitle">"Session Description Protocol (SDP) Offer/Answer Procedures for Stream Control Transmission Protocol (SCTP) over Datagram Transport Layer Security (DTLS) Transport"</span>, <span class="seriesInfo">RFC 8841</span>, <span class="seriesInfo">DOI 10.17487/RFC8841</span>, <time datetime="2021-01" class="refDate">January 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc8841">https://datatracker.ietf.org/doc/html/rfc8841</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
