@@ -1,6 +1,6 @@
 ---
 title: "Bootstrapping WebSockets with HTTP/3"
-docname: draft-hamilton-httpbis-h3-websockets
+docname: draft-hamilton-httpbis-h3-websockets-latest
 category: info
 
 ipr: trust200902
