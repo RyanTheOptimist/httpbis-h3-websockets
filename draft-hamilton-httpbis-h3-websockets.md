@@ -19,6 +19,7 @@ author:
     email: rch@google.com
 
 normative:
+  HTTP3: I-D.draft-ietf-quic-http-34
 
 informative:
 
@@ -42,6 +43,8 @@ settings to be used with HTTP/3.
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
+
+# Websockets Upgrade over HTTP/3
 
 {{!RFC8441}} defines a mechanism for running the WebSocket Protocol
 {{!RFC6455}} over a single stream of an HTTP/2 connection. This includes
