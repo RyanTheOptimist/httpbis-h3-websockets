@@ -4,12 +4,12 @@
 
 HTTP                                                         R. Hamilton
 Internet-Draft                                                    Google
-Intended status: Informational                            26 August 2021
-Expires: 27 February 2022
+Intended status: Informational                            27 August 2021
+Expires: 28 February 2022
 
 
                   Bootstrapping WebSockets with HTTP/3
-                  draft-hamilton-httpbis-h3-websockets
+              draft-hamilton-httpbis-h3-websockets-latest
 
 Abstract
 
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 February 2022.
+   This Internet-Draft will expire on 28 February 2022.
 
 Copyright Notice
 
