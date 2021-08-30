@@ -52,7 +52,7 @@ header field and new semantics for the ":path" and ":authority" pseudo
 header fields. It also defines a new HTTP/2 SETTING sent by a server to
 allow the client to use  Extended CONNECT.
 
-Stream termination in haneled different in HTTP/3 than HTTP/2. In HTTP/3 the
+Stream termination in handeled different in HTTP/3 than HTTP/2. In HTTP/3 the
 lifetime of streams are managed by the QUIC transport. {{Section 2.5 of !RFC9000}}
 describes the operations which can be performed on a QUIC stream and
 explains how to terminate streams.
