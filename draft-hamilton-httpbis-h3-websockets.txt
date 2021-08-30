@@ -4,8 +4,8 @@
 
 HTTP                                                         R. Hamilton
 Internet-Draft                                                    Google
-Intended status: Informational                            27 August 2021
-Expires: 28 February 2022
+Intended status: Informational                            30 August 2021
+Expires: 3 March 2022
 
 
                   Bootstrapping WebSockets with HTTP/3
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 February 2022.
+   This Internet-Draft will expire on 3 March 2022.
 
 Copyright Notice
 
@@ -95,9 +95,16 @@ Table of Contents
    pseudo header fields.  It also defines a new HTTP/2 SETTING sent by a
    server to allow the client to use Extended CONNECT.
 
+   Stream termination in haneled different in HTTP/3 than HTTP/2.  In
+   HTTP/3 the lifetime of streams are managed by the QUIC transport.
+   Section 2.5 of [RFC9000] describes the operations which can be
+   performed on a QUIC stream and explains how to terminate streams.
+
    The semantics of the headers and SETTING are identical to those in
-   HTTP/2 as defined [RFC8441].  The SETTINGS_ENABLE_CONNECT_PROTOCOL
-   value is 0x08 (decimal 8), as in HTTP/2.
+   HTTP/2 as defined [RFC8441].  Appendix A.3 of [HTTP3] requires thatt
+   HTTP/3 settings be registered separately for HTTP/3.  The
+   SETTINGS_ENABLE_CONNECT_PROTOCOL value is 0x08 (decimal 8), as in
+   HTTP/2.
 
 4.  Security Considerations
 
@@ -148,6 +155,11 @@ Table of Contents
               over Datagram Transport Layer Security (DTLS) Transport",
               RFC 8841, DOI 10.17487/RFC8841, January 2021,
               <https://datatracker.ietf.org/doc/html/rfc8841>.
+
+   [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, May 2021,
+              <https://datatracker.ietf.org/doc/html/rfc9000>.
 
 Acknowledgments
 
