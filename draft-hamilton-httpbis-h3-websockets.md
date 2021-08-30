@@ -35,7 +35,7 @@ separately registered.  This document describes the mechanism for HTTP/3.
 # Introduction
 
 {{!RFC8441}} defines an extension to HTTP/2 which is also useful in HTTP/3.
-This extension makes use of an HTTP/2 setting.  Appendix A.3 of [HTTP3]
+This extension makes use of an HTTP/2 setting.  {{Appendix A.3 of HTTP3}}
 describes the required updates for HTTP/2 settings to be used with HTTP/3.
 
 
@@ -52,9 +52,15 @@ header field and new semantics for the ":path" and ":authority" pseudo
 header fields. It also defines a new HTTP/2 SETTING sent by a server to
 allow the client to use  Extended CONNECT.
 
+Stream termination in haneled different in HTTP/3 than HTTP/2. In HTTP/3 the
+lifetime of streams are managed by the QUIC transport. {{Section 2.5 of RFC9000}}
+describes the operations which can be performed on a QUIC stream and
+explains how to terminate streams.
+
 The semantics of the headers and SETTING are identical to those
-in HTTP/2 as defined {{!RFC8441}}. The SETTINGS_ENABLE_CONNECT_PROTOCOL
-value is 0x08 (decimal 8), as in HTTP/2.
+in HTTP/2 as defined {{!RFC8441}}. {{Appendix A.3 of HTTP3}} requires thatt
+HTTP/3 settings be registered separately for HTTP/3. The
+SETTINGS_ENABLE_CONNECT_PROTOCOL value is 0x08 (decimal 8), as in HTTP/2.
 
 # Security Considerations
 
