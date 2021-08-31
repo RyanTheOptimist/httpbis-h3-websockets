@@ -4,8 +4,8 @@
 
 HTTP                                                         R. Hamilton
 Internet-Draft                                                    Google
-Intended status: Informational                            30 August 2021
-Expires: 3 March 2022
+Intended status: Informational                            31 August 2021
+Expires: 4 March 2022
 
 
                   Bootstrapping WebSockets with HTTP/3
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 March 2022.
+   This Internet-Draft will expire on 4 March 2022.
 
 Copyright Notice
 
@@ -95,10 +95,11 @@ Table of Contents
    pseudo header fields.  It also defines a new HTTP/2 SETTING sent by a
    server to allow the client to use Extended CONNECT.
 
-   Stream termination in handeled different in HTTP/3 than HTTP/2.  In
-   HTTP/3 the lifetime of streams are managed by the QUIC transport.
-   Section 2.5 of [RFC9000] describes the operations which can be
-   performed on a QUIC stream and explains how to terminate streams.
+   The HTTP/3 stream closure is also analogous to the TCP connection
+   closure of [RFC6455].  Orderly TCP-level closures are represented as
+   a FIN bit on the stream (Section 4.2 of [HTTP3]).  RST exceptions are
+   represented with an stream error (Section 8 of [HTTP3]) of type
+   H3_REQUEST_CANCELLED (Section 8.1 of [HTTP3])
 
    The semantics of the headers and SETTING are identical to those in
    HTTP/2 as defined [RFC8441].  Appendix A.3 of [HTTP3] requires thatt
@@ -155,11 +156,6 @@ Table of Contents
               over Datagram Transport Layer Security (DTLS) Transport",
               RFC 8841, DOI 10.17487/RFC8841, January 2021,
               <https://datatracker.ietf.org/doc/html/rfc8841>.
-
-   [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
-              Multiplexed and Secure Transport", RFC 9000,
-              DOI 10.17487/RFC9000, May 2021,
-              <https://datatracker.ietf.org/doc/html/rfc9000>.
 
 Acknowledgments
 
