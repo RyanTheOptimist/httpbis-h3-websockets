@@ -52,10 +52,11 @@ header field and new semantics for the ":path" and ":authority" pseudo
 header fields. It also defines a new HTTP/2 SETTING sent by a server to
 allow the client to use  Extended CONNECT.
 
-Stream termination in handeled different in HTTP/3 than HTTP/2. In HTTP/3 the
-lifetime of streams are managed by the QUIC transport. {{Section 2.5 of !RFC9000}}
-describes the operations which can be performed on a QUIC stream and
-explains how to terminate streams.
+The HTTP/3 stream closure is also analogous to the TCP connection
+closure of {{!RFC6455}}. Orderly TCP-level closures are represented as
+a FIN bit on the stream ({{Section 4.2 of HTTP3}}). RST exceptions are
+represented with an stream error ({{Section 8 of HTTP3}}) of type
+H3_REQUEST_CANCELLED ({{Section 8.1 of HTTP3}})
 
 The semantics of the headers and SETTING are identical to those
 in HTTP/2 as defined {{!RFC8441}}. {{Appendix A.3 of HTTP3}} requires thatt
