@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-08-31T00:29:41.894691+00:00",
+  "timestamp": "2021-09-02T00:28:17.565350+00:00",
   "repo": "RyanTheOptimist/httpbis-h3-websockets",
   "labels": [
     {
@@ -49,6 +49,38 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "MDU6SXNzdWU5ODQwNTAzMjA=",
+      "title": "Cite H3 rather than QUIC for stream closure, define the error code to use",
+      "url": "https://github.com/RyanTheOptimist/httpbis-h3-websockets/issues/1",
+      "state": "CLOSED",
+      "author": "LPardue",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "While the messages that govern stream states are defined in QUIC, the application is the thing responsible for directing the QUIC transport layer. \r\n\r\nhttps://ryantheoptimist.github.io/httpbis-h3-websockets/draft-hamilton-httpbis-h3-websockets.html#section-3-2 implies something else is going on. It would be better off linking to something in the H3 spec, I suggest https://datatracker.ietf.org/doc/html/draft-ietf-quic-http-34#section-4.2\r\n\r\nAlso, what I'd be looking for specifically as an implementer is guidance on what error code to use. \r\n\r\nRFC 8441 says \r\n\r\n> RST exceptions are\r\n   represented with the RST_STREAM frame ([RFC7540], Section 6.4) with\r\n   the CANCEL error code ([RFC7540], Section 7).\r\n   \r\nThis is inspired by RFC8540's definition of conventional CONNECT but notice the error code is different for extended connect. The proposal therefore is to make it explicit that WS over H3 needs to use H3_REQUEST_CANCELLED to terminate the stream in this situation.",
+      "createdAt": "2021-08-31T16:22:59Z",
+      "updatedAt": "2021-08-31T18:27:20Z",
+      "closedAt": "2021-08-31T18:27:20Z",
+      "comments": [
+        {
+          "author": "RyanTheOptimist",
+          "authorAssociation": "OWNER",
+          "body": "(I think you meant RFC7540 (HTTP/2) not RFC 8540 (SCTP), right?)\r\n\r\nThanks! That makes sense. How about something like this then?\r\n\r\nThe HTTP/3 stream closure is also analogous to the TCP connection\r\nclosure of [RFC6455].  Orderly TCP-level closures are represented as\r\na FIN bit on the stream ([HTTP3], Section 4.2).  RST exceptions are\r\nrepresented with an stream error ([HTTP], Section 8) of type\r\nH3_REQUEST_CANCELLED ([HTTP], Section 8.1).",
+          "createdAt": "2021-08-31T17:41:29Z",
+          "updatedAt": "2021-08-31T17:41:29Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "NONE",
+          "body": "yep (oops) and yep, works for me",
+          "createdAt": "2021-08-31T17:54:14Z",
+          "updatedAt": "2021-08-31T17:54:14Z"
+        }
+      ]
+    }
+  ],
   "pulls": []
 }
